@@ -15,33 +15,33 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.algamoney.api.exception.CategoriaNotFoundException;
-import com.algamoney.api.model.Categoria;
-import com.algamoney.api.repository.CategoriaRepository;
+import com.algamoney.api.model.Pessoa;
+import com.algamoney.api.repository.PessoaRepository;
 
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/categorias")
-public class CategoriaResource {
+@RequestMapping("/pessoas")
+public class PessoaResource {
 	
 	@Autowired
-	private CategoriaRepository categoriaRepository;
+	private PessoaRepository pessoaRepository;
 	
 	@GetMapping
-	public List<Categoria> listarCategoria(){
-		return categoriaRepository.findAll();
+	public List<Pessoa> listarCategoria(){
+		return pessoaRepository.findAll();
 	}
 	
 	@GetMapping("/{codigo}")
-	public Categoria buscarCategoriaPeloCodigo(@PathVariable Long codigo){
-		Optional<Categoria> optionalCategoria = categoriaRepository.findById(codigo);
+	public Pessoa buscarCategoriaPeloCodigo(@PathVariable Long codigo){
+		Optional<Pessoa> optionalCategoria = pessoaRepository.findById(codigo);
 		return optionalCategoria.orElseThrow(()-> new CategoriaNotFoundException(codigo));
 	}
 	
 	@PostMapping
-	public ResponseEntity<Categoria> inserirCategoria(@Valid @RequestBody Categoria categoria, HttpServletResponse response){
-		Categoria categoriaSalva = categoriaRepository.save(categoria);
+	public ResponseEntity<Pessoa> inserirCategoria(@Valid @RequestBody Pessoa categoria, HttpServletResponse response){
+		Pessoa categoriaSalva = pessoaRepository.save(categoria);
 		
 		URI uri = ServletUriComponentsBuilder
 					.fromCurrentRequestUri()
