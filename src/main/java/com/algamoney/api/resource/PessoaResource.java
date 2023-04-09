@@ -29,18 +29,18 @@ public class PessoaResource {
 	private PessoaRepository pessoaRepository;
 	
 	@GetMapping
-	public List<Pessoa> listarCategoria(){
+	public List<Pessoa> listarPessoas(){
 		return pessoaRepository.findAll();
 	}
 	
 	@GetMapping("/{codigo}")
-	public Pessoa buscarCategoriaPeloCodigo(@PathVariable Long codigo){
+	public Pessoa buscarPessoaPeloCodigo(@PathVariable Long codigo){
 		Optional<Pessoa> optionalCategoria = pessoaRepository.findById(codigo);
 		return optionalCategoria.orElseThrow(()-> new CategoriaNotFoundException(codigo));
 	}
 	
 	@PostMapping
-	public ResponseEntity<Pessoa> inserirCategoria(@Valid @RequestBody Pessoa categoria, HttpServletResponse response){
+	public ResponseEntity<Pessoa> inserirPessoa(@Valid @RequestBody Pessoa categoria, HttpServletResponse response){
 		Pessoa categoriaSalva = pessoaRepository.save(categoria);
 		
 		URI uri = ServletUriComponentsBuilder

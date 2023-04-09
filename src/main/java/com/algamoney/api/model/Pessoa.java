@@ -27,6 +27,12 @@ public class Pessoa {
 	@Embedded
 	Endereco endereco;
 
+	
+	
+	public Pessoa() {
+		super();
+	}
+
 	public Pessoa(Long codigo, String nome, Boolean ativo, Endereco endereco) {
 		super();
 		this.codigo = codigo;
