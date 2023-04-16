@@ -13,23 +13,20 @@ import jakarta.validation.constraints.NotNull;
 @Entity
 @Table(name = "pessoa")
 public class Pessoa {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Long codigo;
-	
+
 	@NotNull(message = "Nome da pessoa é obrigatório")
 	String nome;
-	
+
 	@NotNull(message = "Status do cliente é obrigatório")
 	Boolean ativo;
-	
+
 	@Embedded
-	@NotNull(message = "Endereço do cliente é obrigatório")
 	Endereco endereco;
 
-	
-	
 	public Pessoa() {
 		super();
 	}
@@ -91,5 +88,5 @@ public class Pessoa {
 		return Objects.equals(ativo, other.ativo) && Objects.equals(codigo, other.codigo)
 				&& Objects.equals(endereco, other.endereco) && Objects.equals(nome, other.nome);
 	}
-	
+
 }

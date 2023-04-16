@@ -9,29 +9,13 @@ import jakarta.validation.constraints.NotNull;
 @Embeddable
 public class Endereco {
 
-	@NotNull(message = "Logradouro é obrigatório")
-	@NotBlank
 	String logradouro;
-	@NotNull(message = "Numero da residencia é obrigatório")
-	@NotBlank
 	String numero;
-	@NotNull(message = "Complemento é obrigatório")
-	@NotBlank
 	String complemento;
-	@NotNull(message = "Bairro é obrigatório")
-	@NotBlank
 	String bairro;
-	@NotNull(message = "CEP é obrigatório")
-	@NotBlank
 	String cep;
-	@NotNull(message = "Cidade é obrigatório")
-	@NotBlank
 	String cidade;
-	@NotNull(message = "Estado é obrigatório")
-	@NotBlank
 	String estado;
-	
-	
 
 	public Endereco() {
 		super();
@@ -124,7 +108,5 @@ public class Endereco {
 				&& Objects.equals(estado, other.estado) && Objects.equals(logradouro, other.logradouro)
 				&& Objects.equals(numero, other.numero);
 	}
-	
-	
 
 }
