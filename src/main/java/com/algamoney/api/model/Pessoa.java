@@ -25,6 +25,7 @@ public class Pessoa {
 	Boolean ativo;
 	
 	@Embedded
+	@NotNull(message = "Endereço do cliente é obrigatório")
 	Endereco endereco;
 
 	

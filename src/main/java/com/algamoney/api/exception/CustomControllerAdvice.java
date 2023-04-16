@@ -23,6 +23,12 @@ public class CustomControllerAdvice extends ResponseEntityExceptionHandler {
 		return new ResponseEntity<Object>(errorMessages,new HttpHeaders(),errorMessages.getStatus());
 	}
 	
+	@ExceptionHandler(PessoaNotFoundException.class)
+	public ResponseEntity<Object> handlePessoaNotFound(PessoaNotFoundException ex, WebRequest request){
+		MessagesExceptionHandler errorMessages = new MessagesExceptionHandler(new Date(),HttpStatus.NOT_FOUND.value(), ex.getMessage());
+		return new ResponseEntity<Object>(errorMessages,new HttpHeaders(),errorMessages.getStatus());
+	}
+	
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
 			HttpHeaders headers, HttpStatusCode status, WebRequest request) {
