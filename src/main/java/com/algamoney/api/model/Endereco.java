@@ -3,8 +3,6 @@ package com.algamoney.api.model;
 import java.util.Objects;
 
 import jakarta.persistence.Embeddable;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 
 @Embeddable
 public class Endereco {
