@@ -1,4 +1,4 @@
-package com.algamoney.api.exception;
+package com.algamoney.api.exception.categoria;
 
 public class CategoriaNotFoundException extends RuntimeException{
 	

@@ -1,7 +1,6 @@
 package com.algamoney.api.resource;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.algamoney.api.event.RecursoCriadoEvent;
-import com.algamoney.api.exception.PessoaNotFoundException;
 import com.algamoney.api.model.Pessoa;
 import com.algamoney.api.repository.PessoaRepository;
 import com.algamoney.api.service.PessoaService;
@@ -46,8 +44,7 @@ public class PessoaResource {
 
 	@GetMapping("/{codigo}")
 	public Pessoa buscarPessoaPeloCodigo(@PathVariable Long codigo) {
-		Optional<Pessoa> optionalPessoa = pessoaRepository.findById(codigo);
-		return optionalPessoa.orElseThrow(() -> new PessoaNotFoundException(codigo));
+		return pessoaService.buscarPessoaPeloCodigo(codigo);
 	}
 
 	@PutMapping("/{codigo}")
@@ -70,9 +67,7 @@ public class PessoaResource {
 	@DeleteMapping("/{codigo}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deletePessoaPeloCodigo(@PathVariable Long codigo) {
-		Optional<Pessoa> optionalPessoa = pessoaRepository.findById(codigo);
-		optionalPessoa.orElseThrow(() -> new PessoaNotFoundException(codigo));
-		pessoaRepository.delete(optionalPessoa.get());
+		pessoaRepository.delete(pessoaService.buscarPessoaPeloCodigo(codigo));
 	}
 
 }

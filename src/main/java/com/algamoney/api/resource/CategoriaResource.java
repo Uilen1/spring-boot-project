@@ -1,7 +1,6 @@
 package com.algamoney.api.resource;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
@@ -17,9 +16,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.algamoney.api.event.RecursoCriadoEvent;
-import com.algamoney.api.exception.CategoriaNotFoundException;
 import com.algamoney.api.model.Categoria;
 import com.algamoney.api.repository.CategoriaRepository;
+import com.algamoney.api.service.CategoriaService;
 
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
@@ -32,6 +31,9 @@ public class CategoriaResource {
 	private CategoriaRepository categoriaRepository;
 
 	@Autowired
+	private CategoriaService categoriaService;
+
+	@Autowired
 	private ApplicationEventPublisher publisher;
 
 	@GetMapping
@@ -41,8 +43,7 @@ public class CategoriaResource {
 
 	@GetMapping("/{codigo}")
 	public Categoria buscarCategoriaPeloCodigo(@PathVariable Long codigo) {
-		Optional<Categoria> optionalCategoria = categoriaRepository.findById(codigo);
-		return optionalCategoria.orElseThrow(() -> new CategoriaNotFoundException(codigo));
+		return categoriaService.buscarCategoriaPeloCodigo(codigo);
 	}
 
 	@PostMapping
@@ -56,9 +57,7 @@ public class CategoriaResource {
 	@DeleteMapping("/{codigo}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deleteCategoriaPeloCodigo(@PathVariable Long codigo) {
-		Optional<Categoria> optionalCategoria = categoriaRepository.findById(codigo);
-		optionalCategoria.orElseThrow(() -> new CategoriaNotFoundException(codigo));
-		categoriaRepository.delete(optionalCategoria.get());
+		categoriaRepository.delete(categoriaService.buscarCategoriaPeloCodigo(codigo));
 	}
 
 }
