@@ -42,6 +42,9 @@ public class LancamentoRepositoryImpl implements LancamentoRepositoryQuery {
 
 		if (StringUtils.hasLength(lancamentoFilter.getDescricao())) {
 //			where descricao like '%texto%'
+//				and dataVencimento >= dataVencimentoDe
+//				and dataVencimento <= dataVencimentoAte
+
 			predicates.add(builder.like(builder.lower(root.get("descricao")),
 					"%" + lancamentoFilter.getDescricao().toLowerCase() + "%"));
 
