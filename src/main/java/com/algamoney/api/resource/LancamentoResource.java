@@ -1,5 +1,9 @@
 package com.algamoney.api.resource;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,8 +45,21 @@ public class LancamentoResource {
 	private ApplicationEventPublisher publisher;
 
 	@GetMapping
-	public Page<Lancamento> listarLancamento(LancamentoFilter lancamentoFilter,Pageable pageable) {
-		return lancamentoRepository.filtrar(lancamentoFilter,pageable);
+	public ResponseEntity<Map<String, Object>> listarLancamento(LancamentoFilter lancamentoFilter, Pageable pageable) {
+		Page<Lancamento> lancamentoPage = lancamentoRepository.filtrar(lancamentoFilter, pageable);
+		List<Lancamento> lancamentos = new ArrayList<>();
+
+		lancamentos = lancamentoPage.getContent();
+
+		Map<String, Object> response = new HashMap<>();
+		response.put("lancamentos", lancamentos);
+		response.put("currentPage", lancamentoPage.getNumber());
+		response.put("hasPrevious", lancamentoPage.hasPrevious());
+		response.put("hasNext", lancamentoPage.hasNext());
+		response.put("totalPages", lancamentoPage.getTotalPages());
+		response.put("totalItems", lancamentoPage.getTotalElements());
+
+		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
 	@GetMapping("/{codigo}")
